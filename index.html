@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pretty Todo App</title>
+    <!-- Linking CSS -->
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>ToDo App</h1>
+      
+      <!-- Task Form -->
+      <form id="todo-form">
+        <div>
+          <label for="task-input">Task:</label>
+          <input type="text" id="task-input" required placeholder="Enter task" />
+        </div>
+        <div>
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" required />
+        </div>
+        <div>
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date" required />
+        </div>
+        <div>
+          <label for="task-priority">Priority:</label>
+          <select id="task-priority" required>
+            <option id="priority" value="low">Low</option>
+            <option id="priority" value="medium">Medium</option>
+            <option id="priority" value="high">High</option>
+          </select>
+        </div>
+        <button type="submit">Add Task</button>
+      </form>
+  
+      <!-- Search and Filter Section -->
+      <div class="filters">
+        <input type="text" id="task-search" placeholder="Search tasks" />
+        
+        <label for="task-filter">Filter:</label>
+        <select id="task-filter">
+          <option id="filter" value="all">All</option>
+          <option id="filter" value="completed">Completed</option>
+          <option id="filter" value="incomplete">Incomplete</option>
+        </select>
+      </div>
+  
+      <!-- Task List -->
+      <ul id="todo-list" class="task-list"></ul>
+  
+     
+      
+  
+      <!-- Buttons for additional actions -->
+      <div class="actions">
+        <button id="clear-completed">Clear Completed Tasks</button>
+       
+        <button id="dark-mode-toggle">Toggle Dark Mode</button>
+      </div>
+    </div>
+
+    <!-- Linking to main.ts script -->
+    <script type="module" src="src/main.ts"></script>
+  </body>
+</html>
