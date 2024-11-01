@@ -202,4 +202,4 @@ class ToDoApp {
 }
 
 const app = new ToDoApp();
-console.log(app); 
+console.log(app); // For debugging purposes  
