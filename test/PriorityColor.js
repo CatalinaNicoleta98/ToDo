@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture("ToDo Test")
-    .page("http://localhost:5173/todo/");
+    .page("https://test.vrinceanucatalina.com/todo/");
 
     
 
