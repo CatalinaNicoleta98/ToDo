@@ -244,6 +244,9 @@ body.dark-mode button,
 body.dark-mode .task-list li {
   background-color: #5d4037; /* Muted dark brown for inputs and tasks */
   color: #f5f5f5; /* Light gray text */
+  border-width: 2px;
+  border-color: #ec9100;
+  
 }
 
 body.dark-mode button {
