@@ -51,8 +51,8 @@ jobs:
     environment: Live
     steps:
        - name: FTP deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
-        with:
+         uses: SamKirkland/FTP-Deploy-Action@4.3.3
+         with:
           server: ${{ vars.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }} 
           password: ${{ secrets.FTP_PASSWORD }}
