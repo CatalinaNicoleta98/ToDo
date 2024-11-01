@@ -56,5 +56,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }} 
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: live/todo/ #live.vrinceanucatalina.com/todo
-          local-dir: dist/ #trailing slash is important
+          local-dir: dist/ #trailing slash important
+          
 
