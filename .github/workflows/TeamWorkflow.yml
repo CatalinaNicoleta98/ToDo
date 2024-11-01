@@ -43,8 +43,9 @@ jobs:
 
       - name: Run tests
         run: testcafe chromium:headless test/* 
-``
-``deployment:
+
+  
+  deployment:
     needs: integration-delivery
     runs-on: ubuntu-latest 
     environment: Live
@@ -57,5 +58,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: live/todo/ #live.vrinceanucatalina.com/todo
           local-dir: dist/ #trailing slash important
-          
+
 
