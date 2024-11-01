@@ -119,7 +119,7 @@ button[type="submit"]:hover {
 /* Individual Task Item Styles */
 .task-list li {
   background-color: #f4c2a0; /* Soft peach for tasks */
-  border: 2px solid #f8d9a0; /* Soft gold border */
+  border: 4px solid #4e1700; /* Soft gold border */
   padding: 15px 20px; /* Increased padding for better touch target */
   border-radius: 10px;
   margin-bottom: 10px;
@@ -129,11 +129,12 @@ button[type="submit"]:hover {
   transition: 0.3s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   font-weight: bold;
+  color: #1f1000;
 }
 
 .task-list li:hover {
   background-color: #f9b89b; /* Slightly darker peach on hover */
-  border-color: #fbd2a1; /* Soft gold border on hover */
+  border:0px; /* Soft gold border on hover */
   transform: translateY(-2px); /* Lift effect on hover */
 }
 
@@ -238,20 +239,25 @@ body.dark-mode h1 {
   color: #ffb74d; /* Light golden for title */
 }
 
+
+
 body.dark-mode input,
 body.dark-mode select,
 body.dark-mode button,
 body.dark-mode .task-list li {
   background-color: #5d4037; /* Muted dark brown for inputs and tasks */
-  color: #f5f5f5; /* Light gray text */
-  border-width: 2px;
-  border-color: #e8b769;
+  color: #000000; /* Light gray text */
+  border-width: 4px;
+  border-color: #ffb300;
   
 }
 
 body.dark-mode button {
   background-color: #ffb74d; /* Light golden for buttons */
 }
+
+
+/* priority color */
 
 
 
