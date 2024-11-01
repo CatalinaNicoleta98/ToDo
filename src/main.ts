@@ -144,11 +144,9 @@ class ToDoApp {
     }
 
     private deleteAllTasks() { // New method for deleting all tasks
-        
-            this.tasks = [];
-            localStorage.removeItem('tasks');
-            this.render();
-        
+        this.tasks = [];
+        localStorage.removeItem('tasks');
+        this.render();
     }
 
     private saveTasksToStorage() {
@@ -164,65 +162,81 @@ class ToDoApp {
     }
 
     private render() {
-      const todoList = document.getElementById("todo-list") as HTMLUListElement | null;
+        const todoList = document.getElementById("todo-list") as HTMLUListElement | null;
 
-      if (todoList) {
-          todoList.innerHTML = "";
+        if (todoList) {
+            todoList.innerHTML = "";
 
-          // Filter and search logic
-          let filteredTasks =
-              (this.filter === "completed"
-                  ? this.tasks.filter((task) => task.completed)
-                  : this.filter === "incomplete"
-                  ? this.tasks.filter((task) => !task.completed)
-                  : [...this.tasks]
-              ).filter((task) =>
-                  task.name.toLowerCase().includes(this.searchTerm)
-              );
+            // Filter and search logic
+            let filteredTasks =
+                (this.filter === "completed"
+                    ? this.tasks.filter((task) => task.completed)
+                    : this.filter === "incomplete"
+                    ? this.tasks.filter((task) => !task.completed)
+                    : [...this.tasks]
+                ).filter((task) =>
+                    task.name.toLowerCase().includes(this.searchTerm)
+                );
 
-          filteredTasks.forEach((task) => {
-              const taskElement = document.createElement("li");
-              taskElement.classList.add("task");
-              if (task.completed) taskElement.classList.add("completed");
+            filteredTasks.forEach((task) => {
+                const taskElement = document.createElement("li");
+                taskElement.classList.add("task");
+                if (task.completed) taskElement.classList.add("completed");
 
-              // Highlight overdue tasks
-              if (
-                  new Date(task.endDate).getTime() < new Date().getTime() &&
-                  !task.completed
-              ) {
-                  taskElement.classList.add("overdue");
-              }
+                // Highlight overdue tasks
+                if (
+                    new Date(task.endDate).getTime() < new Date().getTime() &&
+                    !task.completed
+                ) {
+                    taskElement.classList.add("overdue");
+                }
 
-              taskElement.innerHTML =
-                  `<span>${task.name} (Start: ${task.startDate}, End: ${task.endDate}, Priority: ${task.priority})</span>
+                // Set the background color based on priority
+                taskElement.style.backgroundColor = this.getColorByPriority(task.priority);
+
+                taskElement.innerHTML =
+                    `<span>${task.name} (Start: ${task.startDate}, End: ${task.endDate}, Priority: ${task.priority})</span>
                     <button class="edit">Edit</button>
                     <button class="delete">Delete</button>
                     <button class="toggle-complete">${
                         task.completed ? "Undo" : "Complete"
                     }</button>`;
 
-              // Add event listeners for buttons
-              taskElement
-                  .querySelector(".edit")
-                  ?.addEventListener("click", () =>
-                      app.editTask(task.id)
-                  );
-              taskElement
-                  .querySelector(".delete")
-                  ?.addEventListener("click", () =>
-                      app.removeTask(task.id)
-                  );
-              taskElement
-                  .querySelector(".toggle-complete")
-                  ?.addEventListener("click", () =>
-                      app.toggleCompletion(task.id)
-                  );
+                // Add event listeners for buttons
+                taskElement
+                    .querySelector(".edit")
+                    ?.addEventListener("click", () =>
+                        app.editTask(task.id)
+                    );
+                taskElement
+                    .querySelector(".delete")
+                    ?.addEventListener("click", () =>
+                        app.removeTask(task.id)
+                    );
+                taskElement
+                    .querySelector(".toggle-complete")
+                    ?.addEventListener("click", () =>
+                        app.toggleCompletion(task.id)
+                    );
 
-              todoList.appendChild(taskElement);
-          });
-      }
-  }
+                todoList.appendChild(taskElement);
+            });
+        }
+    }
+
+    private getColorByPriority(priority: string): string {
+        switch (priority) {
+            case "low":
+                return "#B2E1B2"; 
+            case "medium":
+                return "#A4C8E1 ";
+            case "high":
+                return "#FF6F61 ";
+            default:
+                return "transparent"; // Fallback color
+        }
+    }
 }
 
 const app = new ToDoApp();
-console.log(app); // For debugging purposes  
+console.log(app);
