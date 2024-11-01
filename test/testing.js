@@ -9,8 +9,8 @@ test('Add Task', async t => {
     await t
        //Arrange
         .typeText(Selector('#task-input'), "New Task")
-        .typeText(Selector('#start-date'), "2024-10-10")
-        .typeText(Selector('#end-date'), "2024-10-12")
+        .typeText(Selector('#start-date'), "2024-11-03")
+        .typeText(Selector('#end-date'), "2024-11-08")
         .click(Selector('#task-priority')) // Click to open dropdown
         .click(Selector('#priority').withText("Low")) // Select the priority option
         //Act
