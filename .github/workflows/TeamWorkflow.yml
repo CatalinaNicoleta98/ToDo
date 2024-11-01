@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Test
     container:
-      image:node
+      image: node
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
