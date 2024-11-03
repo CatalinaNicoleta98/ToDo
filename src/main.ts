@@ -1,5 +1,6 @@
 import './style.css';
 
+// Defines the structure for a task item with required properties
 interface Task {
     id: number;
     name: string;
@@ -10,12 +11,14 @@ interface Task {
 }
 
 class ToDoApp {
+    // Class properties to store tasks, current task ID counter, filter state, search term, and theme preference
     private tasks: Task[] = [];
     private taskId: number = 0;
     private filter: string = 'all';
     private searchTerm: string = '';
     private darkMode: boolean = false; // toggle for dark mode
 
+    // Initialize the app when DOM is loaded - loads saved tasks and sets up event listeners
     constructor() {
         document.addEventListener('DOMContentLoaded', () => {
             this.loadTasksFromStorage();
@@ -24,6 +27,7 @@ class ToDoApp {
         });
     }
 
+    // Sets up all event listeners for form submission, filtering, searching, and task management buttons
     private bindEvents() {
         const form = document.getElementById('todo-form') as HTMLFormElement | null;
         const filterSelect = document.getElementById('task-filter') as HTMLSelectElement | null;
@@ -39,9 +43,10 @@ class ToDoApp {
         if (clearCompletedBtn) clearCompletedBtn.addEventListener('click', this.clearCompletedTasks.bind(this));
         if (toggleAllBtn) toggleAllBtn.addEventListener('click', this.toggleAllTasks.bind(this));
         if (darkModeBtn) darkModeBtn.addEventListener('click', this.toggleDarkMode.bind(this));
-        if (deleteAllBtn) deleteAllBtn.addEventListener('click', this.deleteAllTasks.bind(this)); // Bind the delete all button
+        if (deleteAllBtn) deleteAllBtn.addEventListener('click', this.deleteAllTasks.bind(this));
     }
 
+    // Creates a new task from form input, validates dates, and adds it to the task list
     private addTask(event: Event) {
         event.preventDefault();
 
@@ -64,7 +69,7 @@ class ToDoApp {
                 startDate: startDateInput.value,
                 endDate: endDateInput.value,
                 completed: false,
-                priority: prioritySelect.value, // Capture priority selection
+                priority: prioritySelect.value,
             };
 
             this.tasks.push(newTask);
@@ -79,12 +84,14 @@ class ToDoApp {
         }
     }
 
+    // Removes a specific task by ID from the task list
     private removeTask(id: number) {
         this.tasks = this.tasks.filter(task => task.id !== id);
         this.saveTasksToStorage();
         this.render();
     }
 
+    // Loads a task's details back into the form for editing
     private editTask(id: number) {
         const task = this.tasks.find(task => task.id === id);
         if (task) {
@@ -104,6 +111,7 @@ class ToDoApp {
         }
     }
 
+    // Toggles the completion status of a specific task
     private toggleCompletion(id: number) {
         const task = this.tasks.find(task => task.id === id);
         if (task) {
@@ -113,12 +121,14 @@ class ToDoApp {
         }
     }
 
+    // Removes all completed tasks from the list
     private clearCompletedTasks() {
         this.tasks = this.tasks.filter(task => !task.completed);
         this.saveTasksToStorage();
         this.render();
     }
 
+    // Toggles completion status of all tasks based on current state
     private toggleAllTasks() {
         const allCompleted = this.tasks.every(task => task.completed);
         this.tasks.forEach(task => (task.completed = !allCompleted));
@@ -126,33 +136,39 @@ class ToDoApp {
         this.render();
     }
 
+    // Updates the filter state based on select input
     private applyFilter(event: Event) {
         const filterSelect = event.target as HTMLSelectElement;
         this.filter = filterSelect.value;
         this.render();
     }
 
+    // Updates the search term for filtering tasks
     private applySearch(event: Event) {
         const searchInput = event.target as HTMLInputElement;
         this.searchTerm = searchInput.value.toLowerCase();
         this.render();
     }
 
+    // Toggles dark mode by adding/removing a CSS class
     private toggleDarkMode() {
         this.darkMode = !this.darkMode;
         document.body.classList.toggle('dark-mode', this.darkMode);
     }
 
-    private deleteAllTasks() { // New method for deleting all tasks
+    // Removes all tasks from the list and clears local storage
+    private deleteAllTasks() {
         this.tasks = [];
         localStorage.removeItem('tasks');
         this.render();
     }
 
+    // Saves the current task list to localStorage
     private saveTasksToStorage() {
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
 
+    // Loads tasks from localStorage and sets up the initial task ID
     private loadTasksFromStorage() {
         const savedTasks = localStorage.getItem('tasks');
         if (savedTasks) {
@@ -161,6 +177,7 @@ class ToDoApp {
         }
     }
 
+    // Renders the task list UI, applying filters and search terms
     private render() {
         const todoList = document.getElementById("todo-list") as HTMLUListElement | null;
 
@@ -224,6 +241,7 @@ class ToDoApp {
         }
     }
 
+    // Returns a color code based on the task priority level
     private getColorByPriority(priority: string): string {
         switch (priority) {
             case "low":
