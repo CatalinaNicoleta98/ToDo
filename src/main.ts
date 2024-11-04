@@ -10,11 +10,14 @@ interface Task {
     priority: string; // priority: low, medium, high
 }
 
+// Union type for filter options
+type Filter = 'all' | 'completed' | 'incomplete';
+
 class ToDoApp {
     // Class properties to store tasks, current task ID counter, filter state, search term, and theme preference
     private tasks: Task[] = [];
     private taskId: number = 0;
-    private filter: string = 'all';
+    private filter: Filter = 'all'; // Updated filter to use the union type
     private searchTerm: string = '';
     private darkMode: boolean = false; // toggle for dark mode
 
@@ -33,7 +36,6 @@ class ToDoApp {
         const filterSelect = document.getElementById('task-filter') as HTMLSelectElement | null;
         const searchInput = document.getElementById('task-search') as HTMLInputElement | null;
         const clearCompletedBtn = document.getElementById('clear-completed') as HTMLButtonElement | null;
-        const toggleAllBtn = document.getElementById('toggle-all') as HTMLButtonElement | null;
         const darkModeBtn = document.getElementById('dark-mode-toggle') as HTMLButtonElement | null;
         const deleteAllBtn = document.getElementById('delete-all') as HTMLButtonElement | null;
 
@@ -41,7 +43,6 @@ class ToDoApp {
         if (filterSelect) filterSelect.addEventListener('change', this.applyFilter.bind(this));
         if (searchInput) searchInput.addEventListener('input', this.applySearch.bind(this));
         if (clearCompletedBtn) clearCompletedBtn.addEventListener('click', this.clearCompletedTasks.bind(this));
-        if (toggleAllBtn) toggleAllBtn.addEventListener('click', this.toggleAllTasks.bind(this));
         if (darkModeBtn) darkModeBtn.addEventListener('click', this.toggleDarkMode.bind(this));
         if (deleteAllBtn) deleteAllBtn.addEventListener('click', this.deleteAllTasks.bind(this));
     }
@@ -128,18 +129,10 @@ class ToDoApp {
         this.render();
     }
 
-    // Toggles completion status of all tasks based on current state
-    private toggleAllTasks() {
-        const allCompleted = this.tasks.every(task => task.completed);
-        this.tasks.forEach(task => (task.completed = !allCompleted));
-        this.saveTasksToStorage();
-        this.render();
-    }
-
     // Updates the filter state based on select input
     private applyFilter(event: Event) {
         const filterSelect = event.target as HTMLSelectElement;
-        this.filter = filterSelect.value;
+        this.filter = filterSelect.value as Filter; // Cast the value to Filter type
         this.render();
     }
 
@@ -241,20 +234,20 @@ class ToDoApp {
         }
     }
 
-    // Returns a color code based on the task priority level
+    // Returns background color based on task priority
     private getColorByPriority(priority: string): string {
         switch (priority) {
-            case "low":
-                return "#B2E1B2"; 
-            case "medium":
-                return "#A4C8E1 ";
             case "high":
-                return "#FF6F61 ";
+                return "#FF6F61 "; // Light red for high priority
+            case "medium":
+                return "#A4C8E1 "; // Light orange for medium priority
+            case "low":
+                return "#B2E1B2";  // Light green for low priority
             default:
-                return "transparent"; // Fallback color
+                return "#ffffff"; // Default to white if priority is invalid
         }
     }
 }
 
+// Create an instance of the ToDoApp to start the application
 const app = new ToDoApp();
-console.log(app);
